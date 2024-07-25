@@ -1,0 +1,11 @@
+{
+	"tabWidth": 4,
+	"vueIndentScriptAndStyle": true,
+	"useTabs": true,
+	"enableDebugLogs": true,
+	"arrowParens": "avoid",
+	"trailingComma": "none",
+	"printWidth": 125,
+	"braceStyle": "1tbs",
+	"phpVersion": "7.4"
+}
