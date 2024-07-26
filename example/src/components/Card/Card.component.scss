@@ -1,0 +1,31 @@
+.card {
+	padding: 2rem;
+	background-color: #fff;
+	border-radius: 15px;
+	container-type: inline-size;
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-top: 0;
+		color: black;
+	}
+
+	.body {
+		color: #474747;
+
+		// The scoping works even with deep nesting
+		ul {
+			list-style-type: square;
+
+			li {
+				color: rgb(22, 170, 22);
+			}
+		}
+
+		@container (width > 300px) {
+			columns: 2;
+		}
+	}
+}
