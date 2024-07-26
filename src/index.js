@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 
 /**
@@ -12,61 +11,52 @@ const path = require("path");
  * @returns {Array} An array of webpack loaders for CSS scoping.
  */
 function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
-
+	let i = 1;
 	const getScopedCssLoaders = (loaders = []) => {
-		const id = uuidv4();
+		const id = `scope-${i++}`;
 
 		return [
 			{
 				loader: path.resolve(__dirname, "./scopedCssModulesLoader.js"),
 				ident: id,
 				options: {
-					componentId: cssScopeOptions.componentId ?? id,
+					componentId: cssScopeOptions.componentId ?? id
 				}
 			},
-			'style-loader',
-			'css-loader',
+			"style-loader",
+			"css-loader",
 			{
 				loader: path.resolve(__dirname, "./cssScopeLoader.js"),
 				ident: id,
 				options: {
 					componentId: id,
-					...cssScopeOptions,
+					...cssScopeOptions
 				}
 			},
 			...loaders
-		]
+		];
 	};
 
 	return {
 		oneOf: [
 			{
 				test: /\.component\.css$/,
-				use: () => getScopedCssLoaders([postCssLoader && postCssLoader].filter(Boolean)),
+				use: () => getScopedCssLoaders([postCssLoader && postCssLoader].filter(Boolean))
 			},
 			sass && {
 				test: /\.component\.(scss|sass)$/,
-				use: () => getScopedCssLoaders([postCssLoader && postCssLoader, 'sass-loader'].filter(Boolean)),
+				use: () => getScopedCssLoaders([postCssLoader && postCssLoader, "sass-loader"].filter(Boolean))
 			},
 			{
 				test: /\.css$/,
-				use: [
-					"style-loader",
-					"css-loader",
-					postCssLoader && postCssLoader
-				],
+				use: ["style-loader", "css-loader", postCssLoader && postCssLoader]
 			},
 			sass && {
 				test: /\.(scss|sass)$/,
-				use: [
-					"style-loader",
-					"css-loader",
-					"sass-loader",
-					postCssLoader && postCssLoader
-				],
-			},
+				use: ["style-loader", "css-loader", "sass-loader", postCssLoader && postCssLoader]
+			}
 		].filter(Boolean)
-	}
+	};
 }
 
 module.exports = {
