@@ -181,7 +181,7 @@ module.exports = function (source) {
 			rule.prelude.children = rule.prelude.children.map(modifySelector);
 		}
 
-		if (rule.type === "Atrule") {
+		if (rule.type === "Atrule" && rule.name !== "keyframes") {
 			rule.block.children.forEach(rule => {
 				if (rule.type === "Rule") {
 					rule.prelude.children = rule.prelude.children.map(modifySelector);
