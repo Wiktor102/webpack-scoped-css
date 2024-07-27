@@ -97,3 +97,6 @@ This function is the easiest way to set up webpack loaders for __css and scoped 
   - `scope` - The default. Using this setting, the scope ends where another scope begins. That is - the styles of the parent scope do not "leak" into the children that have their own scope. This is done using complex css selectors, so performance may be decreased. **Note: some css properties may still affect the children scope if they're inherited (ex. font, color, etc.)!**
   - `tree` - The scope continues until the very bottom of the DOM. Styles of the parent scope may affect elements in the lower/deeper scopes.
 
+### WebpackScopedCssModulesLoader options
+* `componentId: string` - Required. A unique ID to identify the scope/component. It must be the same as the `componentId` provided to the WebpackCssScopeLoader for each file.
+
