@@ -1,6 +1,6 @@
 {
 	"name": "webpack-scoped-css",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "A webpack plugin for scoping styles. Supports scss & sass.",
 	"main": "src/index.js",
 	"scripts": {
