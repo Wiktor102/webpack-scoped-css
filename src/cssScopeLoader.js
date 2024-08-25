@@ -152,12 +152,24 @@ module.exports = function (source) {
 
 	function modifySelector(selector) {
 		let combinatorPos = selector.children.findIndex(node => node.type === "Combinator");
+		let pseudoElementPos = selector.children.findIndex(node => node.type === "PseudoElementSelector");
+		let pseudoElement;
+
+		if (pseudoElementPos !== -1) {
+			[pseudoElement] = selector.children.splice(pseudoElementPos, 1);
+		}
+
 		let hasCombinator = combinatorPos != -1;
 		if (!hasCombinator) combinatorPos = selector.children.length;
 
 		selector.children.splice(combinatorPos, 0, attributeValueSelector);
+		selector.children[2]?.type === "PseudoElementSelector" && console.log(selector);
 
-		if (!hasCombinator || options.scopeEnd === "tree") return selector;
+		if (!hasCombinator || options.scopeEnd === "tree") {
+			pseudoElement && selector.children.push(pseudoElement);
+			return selector;
+		}
+
 		const copy = selector.children.slice(combinatorPos + 1);
 		selector.children.push(
 			not([
@@ -173,6 +185,8 @@ module.exports = function (source) {
 				}
 			])
 		);
+
+		pseudoElement && selector.children.push(pseudoElement);
 		return selector;
 	}
 
