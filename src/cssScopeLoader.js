@@ -30,6 +30,10 @@ module.exports = function (source) {
 		baseDataPath: "options"
 	});
 
+	if (source.split("\n")[0] === "@scope tree;") options.scopeEnd = "tree";
+	if (source.split("\n")[0] === "@scope scope;") options.scopeEnd = "scope";
+	if (source.split("\n")[0].includes("@scope")) source = source.split("\n").slice(1).join("\n");
+
 	options.attribute ??= "data-style";
 	options.scopeEnd ??= "scope";
 
