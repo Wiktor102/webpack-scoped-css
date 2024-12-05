@@ -1,0 +1,25 @@
+@scope tree;
+
+footer {
+	padding: 2rem;
+	margin-top: 3rem;
+	border-radius: 10px;
+	background-color: #333;
+
+	pre {
+		background-color: #fff;
+		color: #333;
+	}
+
+	.flex {
+		display: flex;
+	}
+
+	ul {
+		color: green;
+
+		pre {
+			color: inherit;
+		}
+	}
+}

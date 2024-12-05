@@ -5,6 +5,7 @@ import Card from "./components/Card/Card";
 import Gallery from "./components/Gallery/Gallery";
 
 import appStyles from "./app.component.scss";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
 	return (
@@ -27,6 +28,15 @@ const App = () => {
 						own scope and their children (that is: each card and the gallery component). If this behavior in't
 						desired, you can set the <pre>scopeEnd</pre> option to <pre>tree</pre>, which will scope the styles
 						until the bottom of the component tree.
+					</p>
+					<h3>
+						Update v0.2.0: the <pre>@scope</pre> rule
+					</h3>
+					<p>
+						The new at-rule allows customization of the plugin's behavior per file. For example by placing a{" "}
+						<pre>@scope tree;</pre> at-rule on the first line of any .component.(s)css file, you can make that
+						file applicable to all lower scopes although all other files are processed with the setting of
+						"scope". The opposite can also be achieved.
 					</p>
 				</article>
 				<section>
@@ -61,6 +71,7 @@ const App = () => {
 					</h1>
 					<Gallery />
 				</section>
+				<Footer />
 			</div>
 		</>
 	);
