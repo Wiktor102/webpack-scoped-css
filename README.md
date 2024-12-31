@@ -31,6 +31,8 @@ module.exports = {
 **Note: Be sure to remove any other rules related to css files as this might cause issues. _The `getCssLoaders` function handles both scoped and unscoped files._**
 
 2. If you need more flexibility in your configuration, you can write your own set of rules.  You can import both loaders using:
+> [!IMPORTANT]
+> This doesn't currently work. Refer to [issue #1](/../../issues/1) for a work-around.
 ```js
 const { WebpackCssScopeLoader, WebpackScopedCssModulesLoader } = require('webpack-scoped-css');
 ```
