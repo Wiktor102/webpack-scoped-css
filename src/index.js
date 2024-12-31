@@ -1,4 +1,5 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 /**
  * This function generates an array of webpack loaders for CSS scoping.
@@ -10,7 +11,7 @@ const path = require("path");
  *
  * @returns {Array} An array of webpack loaders for CSS scoping.
  */
-function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
+function getCssLoaders(dev, cssScopeOptions, sass = false, postCssLoader = null) {
 	let i = 1;
 	const getScopedCssLoaders = (loaders = []) => {
 		const id = `scope-${i++}`;
@@ -20,10 +21,11 @@ function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
 				loader: path.resolve(__dirname, "./scopedCssModulesLoader.js"),
 				ident: id,
 				options: {
-					componentId: cssScopeOptions.componentId ?? id
+					componentId: cssScopeOptions.componentId ?? id,
+					development: dev
 				}
 			},
-			"style-loader",
+			dev ? "style-loader" : MiniCssExtractPlugin.loader,
 			"css-loader",
 			{
 				loader: path.resolve(__dirname, "./cssScopeLoader.js"),
@@ -61,6 +63,7 @@ function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
 
 module.exports = {
 	getCssLoaders,
+	MiniCssExtractPlugin,
 	WebpackCssScopeLoader: require("./cssScopeLoader"),
 	WebpackScopedCssModulesLoader: require("./scopedCssModulesLoader")
 };
