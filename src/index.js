@@ -64,6 +64,6 @@ function getCssLoaders(dev, cssScopeOptions, sass = false, postCssLoader = null)
 module.exports = {
 	getCssLoaders,
 	MiniCssExtractPlugin,
-	WebpackCssScopeLoader: require("./cssScopeLoader"),
-	WebpackScopedCssModulesLoader: require("./scopedCssModulesLoader")
+	WebpackCssScopeLoader: path.resolve(__dirname, "./cssScopeLoader.js"),
+	WebpackScopedCssModulesLoader: path.resolve(__dirname, "./scopedCssModulesLoader")
 };
