@@ -14,7 +14,8 @@ npm i css-loader style-loader -D
 npm i sass sass-loader -D # For sass/scss support
 ```
 After installing the package(s), you can set up your webpack configuration in 2 different ways:
-1. Use the `getCssLoaders` function provided by this package. It's a single function that takes care of all css-related loaders. Simply import it, and include its execution in the `module.rules` array. This function takes up to 3 arguments: `options`, `sass`, and `postCssLoader`. For a detailed description of these options, see the documentation. Here is a sample:
+### 1. Basic usage
+Use the `getCssLoaders` function provided by this package. It's a single function that takes care of all css-related loaders. Simply import it, and include its execution in the `module.rules` array. This function takes up to 3 arguments: `options`, `sass`, and `postCssLoader`. For a detailed description of these options, see the documentation. Here is a sample:
 ```js
 module.exports = {
   // Other options
@@ -30,9 +31,10 @@ module.exports = {
 ```
 **Note: Be sure to remove any other rules related to css files as this might cause issues. _The `getCssLoaders` function handles both scoped and unscoped files._**
 
-2. If you need more flexibility in your configuration, you can write your own set of rules.  You can import both loaders using:
-> [!IMPORTANT]
-> This doesn't currently work. Refer to [issue #1](/../../issues/1) for a work-around.
+### 2. Advanced usage - custom configuration
+> [!NOTE]
+> Works starting from v0.2.1. Refer to [issue #1](https://github.com/Wiktor102/webpack-scoped-css/issues/1) for a workaround in earlier versions.
+If you need more flexibility in your configuration, you can write your own set of rules. You can import both loaders using:
 ```js
 const { WebpackCssScopeLoader, WebpackScopedCssModulesLoader } = require('webpack-scoped-css');
 ```
