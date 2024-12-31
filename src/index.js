@@ -15,6 +15,12 @@ function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
 	const getScopedCssLoaders = (loaders = []) => {
 		const id = `scope-${i++}`;
 
+		loaders.forEach(loader => {
+			if (loader.loader === "sass-loader") {
+				loader.ident = "sass-loader-for-" + id;
+			}
+		});
+
 		return [
 			{
 				loader: path.resolve(__dirname, "./scopedCssModulesLoader.js"),
@@ -45,7 +51,20 @@ function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
 			},
 			sass && {
 				test: /\.component\.(scss|sass)$/,
-				use: () => getScopedCssLoaders([postCssLoader && postCssLoader, "sass-loader"].filter(Boolean))
+				use: () =>
+					getScopedCssLoaders(
+						[
+							postCssLoader && postCssLoader,
+							{
+								loader: "sass-loader",
+								options: {
+									sassOptions: {
+										style: "expanded"
+									}
+								}
+							}
+						].filter(Boolean)
+					)
 			},
 			{
 				test: /\.css$/,
