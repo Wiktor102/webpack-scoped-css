@@ -6,6 +6,8 @@ This package is a hybrid between css-modules and the scoped-css-loader plugin. I
 I created this package as other available scoped css solutions didn't satisfy me. Up to this point, I've been using the [scoped-css-loader](https://github.com/gaoxiaoliangz/react-scoped-css), which worked great but is now outdated (hasn't been updated for 5 years) and doesn't support modern css features (such as `@container` queries). Also, the mentioned loader works per file rather than per component which isn't ideal. Why not [css-modules](https://github.com/css-modules/css-modules) you might ask? Well, they require every element to have a class name and I feel this is cumbersome to use.
 
 ## Install & setup
+> [!NOTE]
+> You might encounter issues when using TypeScript. Refer to [issue #2](https://github.com/Wiktor102/webpack-scoped-css/issues/2) for a workaround.
 ```bash
 npm i webpack-scoped-css -D
 
@@ -34,6 +36,7 @@ module.exports = {
 ### 2. Advanced usage - custom configuration
 > [!NOTE]
 > Works starting from v0.2.1. Refer to [issue #1](https://github.com/Wiktor102/webpack-scoped-css/issues/1) for a workaround in earlier versions.
+
 If you need more flexibility in your configuration, you can write your own set of rules. You can import both loaders using:
 ```js
 const { WebpackCssScopeLoader, WebpackScopedCssModulesLoader } = require('webpack-scoped-css');
