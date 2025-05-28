@@ -58,6 +58,7 @@ function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
 							{
 								loader: "sass-loader",
 								options: {
+									api: "modern",
 									sassOptions: {
 										style: "expanded"
 									}
@@ -72,7 +73,12 @@ function getCssLoaders(cssScopeOptions, sass = false, postCssLoader = null) {
 			},
 			sass && {
 				test: /\.(scss|sass)$/,
-				use: ["style-loader", "css-loader", "sass-loader", postCssLoader && postCssLoader]
+				use: [
+					"style-loader",
+					"css-loader",
+					{ loader: "sass-loader", options: { api: "modern" } },
+					postCssLoader && postCssLoader
+				]
 			}
 		].filter(Boolean)
 	};
