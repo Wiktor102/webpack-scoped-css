@@ -26,6 +26,7 @@ module.exports = {
 			// ... rules for other file types,
 
 			getCssLoaders({}, true) // You can drop the 2nd argument if you don't need sass/scss
+			// NOTE: The above call will likely change in next major version
 		],
 	},
 	// Other options
@@ -78,7 +79,13 @@ function MyComponent (props) {
 
 export default MyComponent;
 ```
-For a more advanced scenario, see the example code, or even better run it yourself (instructions below).
+> [!WARNING]
+> If using SCSS/SASS **do not** import files that mix mixins/functions and normal rules in their content into any stylesheets containing `@scope`.
+> This will not compile, because the compiler will include other css before `@scope`.
+> Remember: `@scope` must be the first line or just after any imports.
+> This issue might be fixed in a future release.
+
+For a more advanced scope usage scenario, see the example code, or even better run it yourself (instructions below).
 
 ## Running the example (or for plugin development)
 1. clone the repository `git clone https://github.com/Wiktor102/webpack-scoped-css.git`
