@@ -6,6 +6,7 @@ import Gallery from "./components/Gallery/Gallery";
 
 import appStyles from "./app.component.scss";
 import Footer from "./components/Footer/Footer";
+import Form from "./components/Form/Form";
 
 const App = () => {
 	return (
@@ -70,6 +71,9 @@ const App = () => {
 						Gallery <pre>className="grid"</pre>
 					</h1>
 					<Gallery />
+				</section>
+				<section>
+					<Form />
 				</section>
 				<Footer />
 			</div>
