@@ -11,4 +11,13 @@ function Card({ header, children }) {
 	);
 }
 
+function SpecialCard({ header, children }) {
+	return (
+		<div className="special-card" data-style={styles}>
+			<Card header={header}>{children}</Card>
+		</div>
+	);
+}
+
 export default Card;
+export { SpecialCard };
