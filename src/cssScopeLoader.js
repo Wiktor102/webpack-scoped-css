@@ -1,6 +1,7 @@
 const { parse, generate, toPlainObject, fromPlainObject, walk } = require("css-tree");
 const { validate } = require("schema-utils");
 const beautify = require("js-beautify");
+const util = require("util");
 
 const schema = {
 	type: "object",
@@ -157,10 +158,23 @@ module.exports = function (source) {
 	function modifySelector(selector) {
 		let combinatorPos = selector.children.findIndex(node => node.type === "Combinator");
 		let pseudoElementPos = selector.children.findIndex(node => node.type === "PseudoElementSelector");
-		let pseudoElement;
+		let pseudoElementsAndAfter = [];
 
 		if (pseudoElementPos !== -1) {
-			[pseudoElement] = selector.children.splice(pseudoElementPos, 1);
+			// Check if pseudo element is right after a combinator
+			const isPseudoAfterCombinator =
+				pseudoElementPos === 0 || selector.children[pseudoElementPos - 1].type === "Combinator";
+
+			if (!isPseudoAfterCombinator) {
+				// Find the next combinator after the pseudo element, or use end of array
+				let nextCombinatorPos = selector.children.findIndex(
+					(node, index) => index > pseudoElementPos && node.type === "Combinator"
+				);
+				if (nextCombinatorPos === -1) nextCombinatorPos = selector.children.length;
+
+				// Extract pseudo element and all elements after it up to next combinator
+				pseudoElementsAndAfter = selector.children.splice(pseudoElementPos, nextCombinatorPos - pseudoElementPos);
+			}
 		}
 
 		let hasCombinator = combinatorPos != -1;
@@ -170,7 +184,7 @@ module.exports = function (source) {
 		selector.children[2]?.type === "PseudoElementSelector" && console.log(selector);
 
 		if (!hasCombinator || options.scopeEnd === "tree") {
-			pseudoElement && selector.children.push(pseudoElement);
+			pseudoElementsAndAfter.length > 0 && selector.children.push(...pseudoElementsAndAfter);
 			return selector;
 		}
 
@@ -190,7 +204,7 @@ module.exports = function (source) {
 			])
 		);
 
-		pseudoElement && selector.children.push(pseudoElement);
+		pseudoElementsAndAfter.length > 0 && selector.children.push(...pseudoElementsAndAfter);
 		return selector;
 	}
 
