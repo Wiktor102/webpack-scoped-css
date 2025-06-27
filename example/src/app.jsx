@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "./components/Header/Header";
-import Card from "./components/Card/Card";
+import Card, { SpecialCard } from "./components/Card/Card";
 import Gallery from "./components/Gallery/Gallery";
 
 import appStyles from "./app.component.scss";
@@ -60,10 +60,11 @@ const App = () => {
 							dolor sit amet consectetur adipisicing elit. Illo commodi, deleniti temporibus explicabo facilis
 							laborum praesentium eos, a pariatur fugiat quo impedit quod ipsam animi.
 						</Card>
-						<Card header="Lorem ipsum">
-							dolor sit amet consectetur adipisicing elit. Illo commodi, deleniti temporibus explicabo facilis
-							laborum praesentium eos, a pariatur fugiat quo impedit quod ipsam animi.
-						</Card>
+						<SpecialCard header="Special card">
+							This card has an extra element that wraps the original card component. In order to use the same
+							stylesheet for both cards, the <i>data-style</i> attribute is also applied to the wrapper
+							element.
+						</SpecialCard>
 					</div>
 				</section>
 				<section>

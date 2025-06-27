@@ -199,7 +199,14 @@ module.exports = function (source) {
 				{
 					type: "Selector",
 					loc: null,
-					children: [attributeValueSelector, childCombinator, attributeSelector, childCombinator, typeSelector]
+					children: [
+						attributeValueSelector,
+						childCombinator,
+						attributeSelector,
+						not([attributeValueSelector]),
+						childCombinator,
+						typeSelector
+					]
 				}
 			])
 		);
